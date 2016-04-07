@@ -31,10 +31,10 @@ Example `config.json`
 ```
 
 ## Pin Configuration
-You need to configure the relevant GPIO pins using the gpio tool included with wiringPi.
+You need to configure the relevant GPIO pins using the [gpio utility](https://projects.drogon.net/raspberry-pi/wiringpi/the-gpio-utility/
+) included with wiringPi.
 
-https://projects.drogon.net/raspberry-pi/wiringpi/the-gpio-utility/
-
+```
 $ gpio readall
  +-----+-----+---------+------+---+---Pi 2---+---+------+---------+-----+-----+
  | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
@@ -62,14 +62,16 @@ $ gpio readall
  +-----+-----+---------+------+---+----++----+---+------+---------+-----+-----+
  | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |
  +-----+-----+---------+------+---+---Pi 2---+---+------+---------+-----+-----+
-
+```
  The pin number specified in the config.json file is the BCM pin number in this table.
 
  When configuring the pins using GPIO, you can use the -g option to avoid confusion!
 
+```
  $ gpio -g mode 27 out   <-- Set OUTput mode
  $ gpio -g mode 27 down  <-- Set pull-down resistor
  $ gpio export 27 out    <-- Export the pin to /sys/class/gpio
+```
 
  The gpio tool is setuid root, so should be run as the user that runs Homebridge.
 
@@ -78,6 +80,7 @@ $ gpio readall
 (The MIT License)
 
 Copyright (c) 2016 Richard Grime richard.grime@gmail.com
+
 Original Project Copyright (c) 2016 James Blanksby james@blanks.by
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
