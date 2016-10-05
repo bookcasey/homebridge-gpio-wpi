@@ -52,9 +52,9 @@ LockitronAccessory.prototype.setState = function (state, callback) {
   //   // var currentState = (state == Characteristic.LockTargetState.SECURED) ?
   //   //     Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
   //
-  //     this.service
-  //       .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
-  //
+      this.service
+        .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
+
     callback(null);
   //   console.log('after callback');
   //});
