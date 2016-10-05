@@ -30,22 +30,10 @@ LockitronAccessory.prototype.getState = function(callback) {
 }
 
 LockitronAccessory.prototype.setState = function(state, callback) {
-      // var lockitronState = (state == Characteristic.LockTargetState.SECURED) ? "lock" : "unlock";
-      // var currentState = (state == Characteristic.LockTargetState.SECURED) ?
-      //  Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
-
-      if(state == Characteristic.LockTargetState.SECURED) {
-        console.log('Already unlocked for a bit');
-        callback(null)
-      }
-
-      this.log("Unlocking door");
+      this.log("about to unlock");
+      
       this.service
-        .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.UNSECURED);
-
-      this.log("Relocking door");
-      this.service
-          .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
+        .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.UNSECURED;);
 
       callback(null);
 }
