@@ -43,6 +43,7 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 
 LockitronAccessory.prototype.setState = function (state, callback) {
+  console.log('trying to setState')
   storage.init({dir:'persist'}).then(function() {
     console.log('state init', state);
     return storage.setItem('state', state);
