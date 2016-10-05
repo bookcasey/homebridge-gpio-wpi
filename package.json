@@ -1,20 +1,22 @@
 {
-	"name": "homebridge-gpio-wpi",
-	"version": "0.0.1",
-	"description": "Raspberry Pi GPIO plugin for Homebridge (Wiring-pi backend): https://github.com/nfarina/homebridge",
-	"license": "MIT",
-	"keywords": [
-		"homebridge-plugin"
-	],
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/rsg98/homebridge-gpio-wpi.git"
-	},
-	"engines": {
-		"node": ">=0.12.0",
-		"homebridge": ">=0.2.0"
-	},
-	"dependencies": {
-		"wiring-pi": "^2.1.1"
-	}
+  "name": "homebridge-gpio-wpi",
+  "version": "0.0.1",
+  "description": "Raspberry Pi GPIO plugin for Homebridge (Wiring-pi backend): https://github.com/nfarina/homebridge",
+  "license": "MIT",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rsg98/homebridge-gpio-wpi.git"
+  },
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.2.0"
+  },
+  "dependencies": {
+    "node-persist": "^2.0.2",
+    "persist": "^0.2.7",
+    "wiring-pi": "^2.1.1"
+  }
 }
