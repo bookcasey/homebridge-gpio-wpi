@@ -27,16 +27,26 @@ function LockitronAccessory(log, config) {
 }
 
 LockitronAccessory.prototype.getState = function(callback) {
+  // Setup
   storage.init({dir:'persist'}).then(function() {
     return storage.getItem('state')
   }).then(function(state) {
-    if(state) {
-      console.log(1);
-      callback(null, true);
+    if (state === 1) {
+      console.log('init', 1);
+      callback(null, 1);
+    } state === 0) {
+      console.log('init', 0);
+      callback(null, 0);
     } else {
-      console.log(0);
-      callback(null, false);
+      console.log('Something is messed up, resetting...');
+      return storage.setState('state', 0);
     }
+
+    return null;
+  }).then(function() {
+    return this.getState('state');
+  }).then(function(state) {
+    console.log('state set to', state);
   });
 }
 
