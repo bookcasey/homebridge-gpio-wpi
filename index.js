@@ -30,14 +30,16 @@ LockitronAccessory.prototype.getState = function(callback) {
 }
 
 LockitronAccessory.prototype.setState = function(state, callback) {
-      var newState = !state;
-      this.log("Set state to %s", newState);
+      var lockitronState = (state == Characteristic.LockTargetState.SECURED) ? "lock" : "unlock";
+      var currentState = (state == Characteristic.LockTargetState.SECURED) ?
+       Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
+
+      this.log("Set state to %s", currentState);
 
       this.service
-        .setCharacteristic(Characteristic.LockCurrentState, newState);
+        .setCharacteristic(Characteristic.LockCurrentState, currentState);
 
       callback(null);
-      console.log('after callback?');
 }
 
 LockitronAccessory.prototype.getServices = function() {
