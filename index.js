@@ -1,6 +1,7 @@
 var Service, Characteristic;
 
 var storage = require('node-persist');
+// storage.init({dir:'persist'})
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
@@ -44,14 +45,14 @@ LockitronAccessory.prototype.getState = function(callback) {
 LockitronAccessory.prototype.setState = function (state, callback) {
   storage.init({dir:'persist'}).then(function() {
     return storage.setItem('state', !state);
+  }).then(function() {
+    return storage.getItem('state');
   }).then(function(response) {
-    var state = response[0].value
-    console.log('trying to change it to:', state);
-
-    var currentState = (state == Characteristic.LockTargetState.SECURED) ?
-          Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
-
-    this.service.setCharacteristic(Characteristic.LockCurrentState, currentState);
+    console.log(response);
+    // var state = response[0].value
+    // console.log('trying to change it to:', state);
+    //
+    // this.service.setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
 
     callback(null);
   });
