@@ -37,6 +37,7 @@ LockitronAccessory.prototype.setState = function(state, callback) {
         .setCharacteristic(Characteristic.LockCurrentState, newState);
 
       callback(null);
+      console.log('after callback?');
 }
 
 LockitronAccessory.prototype.getServices = function() {
