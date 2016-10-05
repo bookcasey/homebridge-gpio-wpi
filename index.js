@@ -30,9 +30,9 @@ LockitronAccessory.prototype.getState = function(callback) {
       var state;
       storage.getItem('locked').then(function(value) {
         state = value;
+        this.log("Lock state is %s", state);
+        callback(null, state);
       });
-      this.log("Lock state is %s", state);
-      callback(null, state);
 }
 
 
@@ -43,7 +43,7 @@ LockitronAccessory.prototype.setState = function (state, callback) {
         Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
 
     callback(null);
-  };
+  });
 
 }
 
