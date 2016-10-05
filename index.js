@@ -29,10 +29,11 @@ LockitronAccessory.prototype.getState = function(callback) {
   storage.init({dir:'persist'}).then(function() {
     return storage.getItem('state')
   }).then(function(state) {
-    console.log(state);
     if(state) {
+      console.log(1);
       callback(null, 1);
     } else {
+      console.log(0);
       callback(null, 0);
     }
   });
@@ -41,8 +42,9 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 
 LockitronAccessory.prototype.setState = function (state, callback) {
-  this.service
-        .setCharacteristic(Characteristic.LockCurrentState, !state);
+  console.log('trying to unlock');
+  this.service.setCharacteristic(Characteristic.LockCurrentState, 0);
+
   callback(null);
 }
 
