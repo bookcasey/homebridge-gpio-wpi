@@ -48,13 +48,14 @@ LockitronAccessory.prototype.setState = function (state, callback) {
   }).then(function() {
     return storage.getItem('state');
   }).then(function(response) {
-    console.log(response);
+    console.log('response', response);
     // var state = response[0].value
     // console.log('trying to change it to:', state);
     //
-    // this.service.setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
+    this.service.setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
 
     callback(null);
+    console.log('after callback');
   });
 
 }
