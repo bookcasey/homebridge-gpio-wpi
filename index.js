@@ -32,7 +32,9 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 LockitronAccessory.prototype.setState = function (state, callback) {
   // Use your API to actually change the lock in the real world.
-    callback();
+    this.log('before callback');
+    callback(null);
+    this.log('after callback');
 }
 
 LockitronAccessory.prototype.getServices = function() {
