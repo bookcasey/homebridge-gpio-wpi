@@ -1,5 +1,8 @@
 var Service, Characteristic;
 
+var storage = require('node-persist');
+storage.init({dir:'persist'});
+
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
@@ -31,32 +34,7 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 
 LockitronAccessory.prototype.setState = function (state, callback) {
-  console.log('unsecured', Characteristic.LockCurrentState.UNSECURED);
-  console.log('secured', Characteristic.LockCurrentState.SECURED);
-
-    clearTimeout(this.timeoutId);
-
-  // Use your API to actually change the lock in the real world.
-    var self = this;
-
-
     callback();
-
-    if (state === Characteristic.LockCurrentState.UNSECURED) {
-
-      clearTimeout(self.timeoutId);
-      self.timeoutId = setTimeout(function () {
-        console.log('unsecured timout', Characteristic.LockCurrentState.UNSECURED);
-        console.log('secured timout', Characteristic.LockCurrentState.SECURED);
-        self
-          .service
-          .getCharacteristic(Characteristic.LockCurrentState)
-          .setValue(Characteristic.LockCurrentState.SECURED);
-
-          console.log('unsecured postchange', Characteristic.LockCurrentState.UNSECURED);
-          console.log('secured postchange', Characteristic.LockCurrentState.SECURED);
-      }, 30000);
-    }
 }
 
 LockitronAccessory.prototype.getServices = function() {
