@@ -30,7 +30,11 @@ LockitronAccessory.prototype.getState = function(callback) {
     return storage.getItem('state')
   }).then(function(state) {
     console.log(state);
-    callback(null, state);
+    if(state) {
+      callback(null, 1);
+    } else {
+      callback(null, 0);
+    }
   });
 }
 
