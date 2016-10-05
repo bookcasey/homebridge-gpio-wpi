@@ -20,7 +20,6 @@ function LockitronAccessory(log, config) {
   this.service
     .getCharacteristic(Characteristic.LockTargetState)
     .on('get', this.getState.bind(this))
-    .on('set', this.setState.bind(this))
     .on('set', this.setState.bind(this));
 }
 
