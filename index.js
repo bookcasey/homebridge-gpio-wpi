@@ -32,19 +32,7 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 LockitronAccessory.prototype.setState = function (state, callback) {
   // Use your API to actually change the lock in the real world.
-    this.log("door unlocked");
-
-    var self = this;
-
     callback();
-
-    if (state === Characteristic.LockCurrentState.UNSECURED) {
-      this.log('door locked again');
-        self
-          .service
-          .getCharacteristic(Characteristic.LockCurrentState)
-          .setValue(Characteristic.LockCurrentState.SECURED);
-      }
 }
 
 LockitronAccessory.prototype.getServices = function() {
