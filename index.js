@@ -30,7 +30,7 @@ LockitronAccessory.prototype.getState = function(callback) {
 }
 
 LockitronAccessory.prototype.setState = function(state, callback) {
-      var newState = false;
+      var newState = !state;
       this.log("Set state to %s", newState);
 
       this.service
