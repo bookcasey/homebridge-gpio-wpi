@@ -32,7 +32,7 @@ LockitronAccessory.prototype.getState = function(callback) {
   }).then(function(value) {
       console.log(value);
       if(value === undefined) {
-        console.log('fix that undefined!');
+        storage.setItem('value', 0);
       }
   }).then(function() {
     console.log('call the callback');
