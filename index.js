@@ -1,7 +1,6 @@
 var Service, Characteristic;
 
 var storage = require('node-persist');
-storage.init({dir:'persist'});
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
@@ -27,8 +26,9 @@ function LockitronAccessory(log, config) {
 }
 
 LockitronAccessory.prototype.getState = function(callback) {
-  storage.getItem('state').then(function(state) {
-    console.log(state);
+  storage.init({dir:'persist'}).then(function() {
+    return storage.getItem('state')
+  }).then(function(state) {
     callback(null, state);
   });
 }
