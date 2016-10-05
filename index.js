@@ -27,22 +27,15 @@ function LockitronAccessory(log, config) {
 }
 
 LockitronAccessory.prototype.getState = function(callback) {
-        var state = 0;
-        this.log("Lock state is %s", state);
-        callback(null, state);
-      });
+  storage.getItem('state').then(function(state) {
+    console.log(state);
+    callback(null, state);
+  });
 }
 
 
 LockitronAccessory.prototype.setState = function (state, callback) {
-  storage.setItem('locked', !state)
-  .then(function() {
-    var currentState = (state == Characteristic.LockTargetState.SECURED) ?
-        Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
-
-    callback(null);
-  });
-
+  callback();
 }
 
 LockitronAccessory.prototype.getServices = function() {
