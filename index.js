@@ -32,10 +32,12 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 LockitronAccessory.prototype.setState = function (state, callback) {
 
-  clearTimeout(this.timeoutId);
+    clearTimeout(this.timeoutId);
 
   // Use your API to actually change the lock in the real world.
     this.log('before callback');
+    var self = this;
+
 
     callback();
 
