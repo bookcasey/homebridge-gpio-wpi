@@ -50,7 +50,7 @@ GPIOAccessory.prototype.setOn = function(on, callback) {
 }
 
 GPIOAccessory.prototype.pinAction = function(action) {
-    this.log('Turning ' + (action == 1 ? 'on' : 'off') + ' pin #' + this.pin);
+    this.log('Turning XXX' + (action == 1 ? 'on' : 'off') + ' pin #' + this.pin);
 
     var self = this;
     wpi.digitalWrite(self.pin, action);
