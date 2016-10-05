@@ -37,8 +37,14 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 
 LockitronAccessory.prototype.setState = function (state, callback) {
-    console.log(state);
-    callback();
+  storage.setItem('locked', !state)
+  .then(function() {
+    var currentState = (state == Characteristic.LockTargetState.SECURED) ?
+        Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
+
+    callback(null);
+  };
+
 }
 
 LockitronAccessory.prototype.getServices = function() {
