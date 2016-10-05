@@ -39,6 +39,7 @@ LockitronAccessory.prototype.setState = function (state, callback) {
     callback();
 
     if (state === Characteristic.LockCurrentState.UNSECURED) {
+      this.log('door locked again');
         self
           .service
           .getCharacteristic(Characteristic.LockCurrentState)
