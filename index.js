@@ -38,7 +38,7 @@ LockitronAccessory.prototype.setState = function (state, callback) {
 
     this.service.setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.UNSECURED);
 
-    callback(null);
+    callback();
 
     if (state == Characteristic.LockCurrentState.UNSECURED) {
       console.log('trying to undo what we just did...')
