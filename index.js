@@ -43,24 +43,24 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 
 LockitronAccessory.prototype.setState = function (state, callback) {
-  console.log('trying to setState')
-  storage.init({dir:'persist'}).then(function() {
-    console.log('state init', state);
-    return storage.setItem('state', state);
-  }).then(function() {
-    return storage.getItem('state');
-  }).then(function(response) {
-    console.log('in storage right now', response);
-    // var state = response[0].value
-    // console.log('trying to change it to:', state);
-    // var currentState = (state == Characteristic.LockTargetState.SECURED) ?
-    //     Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
-
-      this.service
-        .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
-
+  // console.log('trying to setState')
+  // storage.init({dir:'persist'}).then(function() {
+  //   console.log('state init', state);
+  //   return storage.setItem('state', state);
+  // }).then(function() {
+  //   return storage.getItem('state');
+  // }).then(function(response) {
+  //   console.log('in storage right now', response);
+  //   // var state = response[0].value
+  //   // console.log('trying to change it to:', state);
+  //   // var currentState = (state == Characteristic.LockTargetState.SECURED) ?
+  //   //     Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
+  //
+  //     this.service
+  //       .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
+  //
     callback(null);
-    console.log('after callback');
+  //   console.log('after callback');
   });
 
 }
