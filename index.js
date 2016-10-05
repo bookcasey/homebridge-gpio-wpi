@@ -29,17 +29,23 @@ LockitronAccessory.prototype.getState = function(callback) {
       callback(null, state);
 }
 
-LockitronAccessory.prototype.setState = function(state, callback) {
-      this.log("Set state to unlock");
 
-      this.service
-        .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.UNSECURED);
+LockitronAccessory.prototype.setState = function (state, callback) {
+  // Use your API to actually change the lock in the real world.
+    this.log("door unlocked");
 
-        this.log("Instantly lock again");
-        this.service
-          .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
+    var self = this;
 
-      callback(null);
+    callback();
+
+    if (state === Characteristic.LockCurrentState.UNSECURED) {
+        self
+          .service
+          .getCharacteristic(Characteristic.LockCurrentState)
+          .setValue(Characteristic.LockCurrentState.UNSECURED);
+      }
+    }
+  });
 }
 
 LockitronAccessory.prototype.getServices = function() {
