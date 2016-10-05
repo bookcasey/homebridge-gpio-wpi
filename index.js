@@ -31,6 +31,9 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 
 LockitronAccessory.prototype.setState = function (state, callback) {
+
+  clearTimeout(this.timeoutId);
+
   // Use your API to actually change the lock in the real world.
     this.log('before callback');
 
@@ -38,9 +41,13 @@ LockitronAccessory.prototype.setState = function (state, callback) {
 
     if (state === Characteristic.LockCurrentState.UNSECURED) {
       console.log('re-lock');
-      this.service
-            .getCharacteristic(Characteristic.LockCurrentState)
-            .setValue(Characteristic.LockCurrentState.SECURE);
+      clearTimeout(self.timeoutId);
+      self.timeoutId = setTimeout(function () {
+        self
+          .service
+          .getCharacteristic(Characteristic.LockCurrentState)
+          .setValue(Characteristic.LockCurrentState.SECURED);
+      }, 60000);
     }
 }
 
