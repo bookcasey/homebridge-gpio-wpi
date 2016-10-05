@@ -1,74 +1,44 @@
-var wpi = require("wiring-pi");
 var Service, Characteristic;
 
 module.exports = function(homebridge) {
-    Service = homebridge.hap.Service;
-    Characteristic = homebridge.hap.Characteristic;
+  Service = homebridge.hap.Service;
+  Characteristic = homebridge.hap.Characteristic;
 
-    homebridge.registerAccessory('homebridge-gpio-wpi', 'GPIO', GPIOAccessory);
+  homebridge.registerAccessory("homebridge-lockitron", "Lockitron", LockitronAccessory);
 }
 
-function GPIOAccessory(log, config) {
-    this.log = log;
-    this.name = config['name'];
-    this.pin = config['pin'];
-    this.duration = config['duration'];
-    this.service = new Service.LockMechanism(this.name);
+function LockitronAccessory(log, config) {
+  this.log = log;
+  this.name = config["name"];
 
-    if (!this.pin) throw new Error('You must provide a config value for pin.');
+  this.service = new Service.LockMechanism(this.name);
 
-    //Use pin numbering based on /sys/class/gpio exports (non-root)
-    wpi.setup('sys');
+  this.service
+    .getCharacteristic(Characteristic.LockCurrentState)
+    .on('get', this.getState.bind(this));
 
-    this.service
-        .getCharacteristic(Characteristic.On)
-        .on('get', this.getOn.bind(this))
-        .on('set', this.setOn.bind(this));
-
+  this.service
+    .getCharacteristic(Characteristic.LockTargetState)
+    .on('get', this.getState.bind(this))
+    .on('set', this.setState.bind(this));
 }
 
-GPIOAccessory.prototype.getServices = function() {
-    return [this.service];
+LockitronAccessory.prototype.getState = function(callback) {
+      var state = true;
+      this.log("Lock state is %s", state);
+      callback(null, state);
 }
 
-GPIOAccessory.prototype.getOn = function(callback) {
-    var on = wpi.digitalRead(this.pin);
-    callback(null, on);
+LockitronAccessory.prototype.setState = function(state, callback) {
+      var newState = false;
+      this.log("Set state to %s", newState);
+
+      this.service
+        .setCharacteristic(Characteristic.LockCurrentState, newState);
+
+      callback(null);
 }
 
-GPIOAccessory.prototype.setOn = function(on, callback) {
-    if (on) {
-        this.pinAction(1);
-        if (is_defined(this.duration) && is_int(this.duration)) {
-            this.pinTimer()
-        }
-        callback(null);
-    } else {
-        this.pinAction(0);
-        callback(null);
-    }
-}
-
-GPIOAccessory.prototype.pinAction = function(action) {
-    this.log('Turning' + (action == 1 ? 'on' : 'off') + ' pin #' + this.pin);
-
-    var self = this;
-    wpi.digitalWrite(self.pin, action);
-    var success = (wpi.digitalRead(self.pin) == action);
-    return success;
-}
-
-GPIOAccessory.prototype.pinTimer = function() {
-    var self = this;
-    setTimeout(function() {
-        self.pinAction(0);
-    }, this.duration);
-}
-
-var is_int = function(n) {
-    return n % 1 === 0;
-}
-
-var is_defined = function(v) {
-    return typeof v !== 'undefined';
+LockitronAccessory.prototype.getServices = function() {
+  return [this.service];
 }
