@@ -34,16 +34,20 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 
 LockitronAccessory.prototype.setState = function (state, callback) {
+  console.log('this happens!');
   var currentState = (state == Characteristic.LockTargetState.SECURED) ?
         Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
   var notCurrentState = (!state == Characteristic.LockTargetState.SECURED) ?
               Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
 
-  this.service.setCharacteristic(Characteristic.LockCurrentState, currentState);
+    this.service.setCharacteristic(Characteristic.LockCurrentState, currentState);
 
     callback(null);
 
-  this.service.setCharacteristic(Characteristic.LockCurrentState, notCurrentState);
+    if (state === Characteristic.LockCurrentState.UNSECURED) {
+      this.getCharacteristic(Characteristic.LockCurrentState)
+          .setValue(Characteristic.LockCurrentState.SECURED);
+        }
 }
 
 LockitronAccessory.prototype.getServices = function() {
