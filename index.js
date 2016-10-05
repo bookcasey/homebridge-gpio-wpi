@@ -13,7 +13,7 @@ function GPIOAccessory(log, config) {
     this.name = config['name'];
     this.pin = config['pin'];
     this.duration = config['duration'];
-    this.service = new Service.Switch(this.name);
+    this.service = new Service.LockMechanism(this.name);
 
     if (!this.pin) throw new Error('You must provide a config value for pin.');
 
