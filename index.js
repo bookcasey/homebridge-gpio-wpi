@@ -42,8 +42,8 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 
 LockitronAccessory.prototype.setState = function (state, callback) {
-  console.log('trying to lock');
-  this.service.setCharacteristic(Characteristic.LockCurrentState, 1);
+  console.log('trying to lock', state);
+  this.service.setCharacteristic(Characteristic.LockCurrentState, !state);
 
   callback(null);
 }
