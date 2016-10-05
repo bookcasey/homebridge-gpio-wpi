@@ -61,7 +61,7 @@ LockitronAccessory.prototype.setState = function (state, callback) {
   //
     callback(null);
   //   console.log('after callback');
-  });
+  //});
 
 }
 
