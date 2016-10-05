@@ -27,18 +27,8 @@ function LockitronAccessory(log, config) {
 }
 
 LockitronAccessory.prototype.getState = function(callback) {
-  storage.init({dir:'persist'}).then(function() {
-    return storage.getItem('storage')
-  }).then(function(value) {
-      console.log('first get value', value);
-      if(value === undefined) {
-        return storage.setItem('value', 0);
-      }
-  }).then(function(value) {
-    console.log('call the callback');
-    console.log('fixed value', value);
+    console.log('getting state called!');
     callback(null, 0);
-  });
 }
 
 
@@ -46,6 +36,8 @@ LockitronAccessory.prototype.getState = function(callback) {
 LockitronAccessory.prototype.setState = function (state, callback) {
   var currentState = (state == Characteristic.LockTargetState.SECURED) ?
         Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
+  var notCurrentState = (!state == Characteristic.LockTargetState.SECURED) ?
+              Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
 
   this.service
         .setCharacteristic(Characteristic.LockCurrentState, currentState);
