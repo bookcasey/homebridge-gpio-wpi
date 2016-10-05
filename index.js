@@ -49,6 +49,7 @@ LockitronAccessory.prototype.setState = function (state, callback) {
       console.log(this.service.getCharacteristic(Characteristic.LockTargetState));
       this.service.getCharacteristic(Characteristic.LockTargetState).setValue(Characteristic.LockCurrentState.SECURED);
       console.log(this.service.getCharacteristic(Characteristic.LockTargetState));
+      return null;
         }
 }
 
