@@ -35,6 +35,10 @@ LockitronAccessory.prototype.setState = function(state, callback) {
       this.service
         .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.UNSECURED);
 
+        this.log("Instantly lock again");
+        this.service
+          .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
+
       callback(null);
 }
 
