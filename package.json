@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "node-persist": "^2.0.2",
-    "persist": "^0.2.7",
     "wiring-pi": "^2.1.1"
   }
 }
