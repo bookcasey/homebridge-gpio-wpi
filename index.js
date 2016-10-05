@@ -52,11 +52,11 @@ LockitronAccessory.prototype.setState = function (state, callback) {
     console.log('in storage right now', response);
     // var state = response[0].value
     // console.log('trying to change it to:', state);
-    var currentState = (state == Characteristic.LockTargetState.SECURED) ?
-        Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
+    // var currentState = (state == Characteristic.LockTargetState.SECURED) ?
+    //     Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
 
       this.service
-        .setCharacteristic(Characteristic.LockCurrentState, currentState);
+        .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
 
     callback(null);
     console.log('after callback');
