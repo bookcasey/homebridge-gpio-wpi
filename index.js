@@ -30,7 +30,7 @@ LockitronAccessory.prototype.getState = function(callback) {
   storage.init({dir:'persist'}).then(function() {
     return storage.getItem('storage')
   }).then(function(value) {
-      console.log(value);
+      console.log('first get value', value);
       if(value === undefined) {
         return storage.setItem('value', 0);
       }
