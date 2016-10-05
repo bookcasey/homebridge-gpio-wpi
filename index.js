@@ -27,13 +27,7 @@ function LockitronAccessory(log, config) {
 }
 
 LockitronAccessory.prototype.getState = function(callback) {
-  storage.init({dir:'persist'}).then(function() {
-    return storage.getItem('state')
-  }).then(function(state) {
-    console.log('current persist', state);
-
-    callback(null, state ? true : false);
-  });
+  callback(null, 0);
 }
 
 
