@@ -45,13 +45,13 @@ LockitronAccessory.prototype.setState = function (state, callback) {
   storage.init({dir:'persist'}).then(function() {
     return storage.setItem('state', !state.value);
   }).then(function(response) {
-    console.log(response);
-    // console.log('trying to change it to:', state);
-    //
-    // var currentState = (state == Characteristic.LockTargetState.SECURED) ?
-    //       Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
-    //
-    // this.service.setCharacteristic(Characteristic.LockCurrentState, currentState);
+    var state = response[0].value
+    console.log('trying to change it to:', state);
+
+    var currentState = (state == Characteristic.LockTargetState.SECURED) ?
+          Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
+
+    this.service.setCharacteristic(Characteristic.LockCurrentState, currentState);
 
     callback(null);
   });
