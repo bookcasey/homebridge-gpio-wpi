@@ -35,7 +35,7 @@ LockitronAccessory.prototype.setState = function (state, callback) {
     this.log('before callback');
     this.service
           .getCharacteristic(Characteristic.LockCurrentState)
-          .setValue(Characteristic.LockCurrentState.UNLOCK);
+          .setValue(Characteristic.LockCurrentState.UNSECURE);
 
     callback();
     this.log('after callback');
