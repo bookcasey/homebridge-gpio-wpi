@@ -32,10 +32,10 @@ LockitronAccessory.prototype.getState = function(callback) {
   }).then(function(state) {
     if(state) {
       console.log(1);
-      callback(null, 1);
+      callback(null, true);
     } else {
       console.log(0);
-      callback(null, 0);
+      callback(null, false);
     }
   });
 }
