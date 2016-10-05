@@ -31,7 +31,12 @@ LockitronAccessory.prototype.getState = function(callback) {
     return storage.getItem('storage')
   }).then(function(value) {
       console.log(value);
-      callback(null, 0);
+      if(value === undefined) {
+        console.log('fix that undefined!');
+      }
+  }).then(function() {
+    console.log('call the callback');
+    callback(null, 0);
   });
 }
 
