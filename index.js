@@ -52,7 +52,6 @@ LockitronAccessory.prototype.setState = function (state, callback) {
     // var state = response[0].value
     // console.log('trying to change it to:', state);
     //
-    this.service.setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
 
     callback(null);
     console.log('after callback');
