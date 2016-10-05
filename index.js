@@ -43,8 +43,9 @@ LockitronAccessory.prototype.getState = function(callback) {
 
 LockitronAccessory.prototype.setState = function (state, callback) {
   storage.init({dir:'persist'}).then(function() {
-    return storage.setItem('state', !state);
-  }).then(function(state) {
+    return storage.setItem('state', !state.value);
+  }).then(function(response) {
+    var state = response.value;
     console.log('trying to change it to:', state);
 
     var currentState = (state == Characteristic.LockTargetState.SECURED) ?
