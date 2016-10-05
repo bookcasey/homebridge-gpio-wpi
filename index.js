@@ -27,7 +27,7 @@ function LockitronAccessory(log, config) {
 }
 
 LockitronAccessory.prototype.getState = function(callback) {
-        var state = storage.getItem('locked');
+        var state = 0;
         this.log("Lock state is %s", state);
         callback(null, state);
       });
