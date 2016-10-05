@@ -40,14 +40,15 @@ LockitronAccessory.prototype.setState = function (state, callback) {
     callback();
 
     if (state === Characteristic.LockCurrentState.UNSECURED) {
-      console.log('re-lock');
+
       clearTimeout(self.timeoutId);
       self.timeoutId = setTimeout(function () {
+        console.log('re-lock');
         self
           .service
           .getCharacteristic(Characteristic.LockCurrentState)
           .setValue(Characteristic.LockCurrentState.SECURED);
-      }, 60000);
+      }, 30000);
     }
 }
 
