@@ -9,7 +9,14 @@ module.exports = function(homebridge) {
 function LockitronAccessory(log, config) {
   this.log = log;
   this.name = config["name"];
+  this.pin = config['pin'];
+  this.duration = config['duration'];
   this.service = new Service.LockMechanism(this.name);
+
+  if (!this.pin) throw new Error('You must provide a config value for pin.');
+
+  wpi.setup('sys');
+
   this.service
     .getCharacteristic(Characteristic.LockTargetState)
     .on('set', this.setState.bind(this));
@@ -21,13 +28,23 @@ LockitronAccessory.prototype.setState = function (state, callback) {
         delete this.lockTimer;
     }
 
-    var currentState = (state == Characteristic.LockTargetState.SECURED) ?
-        Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
+    var currentState;
+
+    if (state == Characteristic.LockTargetState.SECURED) {
+      pinAction(0);
+      currentState = Characteristic.LockCurrentState.SECURED;
+    } else {
+      pinAction(1);
+      currentState = Characteristic.LockCurrentState.UNSECURED;
+    }
+
     this.service
         .setCharacteristic(Characteristic.LockCurrentState, currentState);
+
     if (state == Characteristic.LockTargetState.UNSECURED) {
         this.lockTimer = setTimeout(
             function(caller) {
+                pinAction(0);
                 caller.service.getCharacteristic(Characteristic.LockTargetState).updateValue(Characteristic.LockTargetState.SECURED);
                 caller.service.getCharacteristic(Characteristic.LockCurrentState).updateValue(Characteristic.LockCurrentState.SECURED);
                 console.log('timer over');
@@ -40,4 +57,13 @@ LockitronAccessory.prototype.setState = function (state, callback) {
 }
 LockitronAccessory.prototype.getServices = function() {
   return [this.service];
+}
+
+LockitronAccessory.prototype.pinAction = function(action) {
+    this.log('Turning ' + (action == 1 ? 'on' : 'off') + ' pin #' + this.pin);
+
+    var self = this;
+    wpi.digitalWrite(self.pin, action);
+    var success = (wpi.digitalRead(self.pin) == action);
+    return success;
 }
