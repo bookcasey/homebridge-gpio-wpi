@@ -24,6 +24,7 @@ function LockitronAccessory(log, config) {
     .on('set', this.setState.bind(this));
 }
 LockitronAccessory.prototype.setState = function (state, callback) {
+    var self = this;
     callback = callback || function() {};
     if (this.lockTimer) {
         clearTimeout(this.lockTimer);
@@ -51,7 +52,7 @@ LockitronAccessory.prototype.setState = function (state, callback) {
                 caller.service.getCharacteristic(Characteristic.LockCurrentState).updateValue(Characteristic.LockCurrentState.SECURED);
                 console.log('timer over');
             },
-            10000,
+            this.duration,
             this
         );
     }
@@ -68,4 +69,8 @@ LockitronAccessory.prototype.pinAction = function(action) {
     wpi.digitalWrite(self.pin, action);
     var success = (wpi.digitalRead(self.pin) == action);
     return success;
+}
+
+var is_int = function(n) {
+    return n % 1 === 0;
 }
