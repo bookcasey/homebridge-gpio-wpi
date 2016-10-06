@@ -31,8 +31,6 @@ LockitronAccessory.prototype.getState = function(callback) {
     callback(null, 1);
 }
 
-
-
 LockitronAccessory.prototype.setState = function (state, callback) {
     console.log('this happens!');
 
@@ -50,10 +48,20 @@ LockitronAccessory.prototype.setState = function (state, callback) {
       // this.service
       //   .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
 
-      
+
+      // this.service
+      //   .getCharacteristic(Characteristic.LockCurrentState)
+      //   .setValue(Characteristic.LockCurrentState.SECURED);
+
+      console.log(this.service
+        .getCharacteristic(Characteristic.LockCurrentState).value);
+
       this.service
         .getCharacteristic(Characteristic.LockCurrentState)
         .setValue(Characteristic.LockCurrentState.SECURED);
+
+        console.log(this.service
+          .getCharacteristic(Characteristic.LockCurrentState).value);
 
     }
 }
