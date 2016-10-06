@@ -32,7 +32,7 @@ LockitronAccessory.prototype.getState = function(callback) {
 }
 
 LockitronAccessory.prototype.setState = function (state, callback) {
-    console.log('this happens!');
+    console.log('setState runs!');
 
     var currentState = (state == Characteristic.LockTargetState.SECURED) ?
         Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
@@ -43,25 +43,12 @@ LockitronAccessory.prototype.setState = function (state, callback) {
       callback();
 
     if (state == Characteristic.LockCurrentState.UNSECURED) {
-      console.log('Trying to undo what we just did...')
-      // Causes hang up on 'Locking...'
-      // this.service
-      //   .setCharacteristic(Characteristic.LockCurrentState, Characteristic.LockCurrentState.SECURED);
+      console.log('Trying to undo what we just did...');
 
-
-      // this.service
-      //   .getCharacteristic(Characteristic.LockCurrentState)
-      //   .setValue(Characteristic.LockCurrentState.SECURED);
-
-      console.log(this.service
-        .getCharacteristic(Characteristic.LockCurrentState).value);
 
       this.service
-        .getCharacteristic(Characteristic.LockCurrentState)
+        .getCharacteristic(Characteristic.LockTargetState)
         .setValue(Characteristic.LockCurrentState.SECURED);
-
-        console.log(this.service
-          .getCharacteristic(Characteristic.LockCurrentState).value);
 
     }
 }
