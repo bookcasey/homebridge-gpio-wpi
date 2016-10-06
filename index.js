@@ -47,7 +47,7 @@ LockitronAccessory.prototype.setState = function (state, callback) {
     if (state == Characteristic.LockTargetState.UNSECURED) {
         this.lockTimer = setTimeout(
             function(caller) {
-                this.pinAction(0);
+                self.pinAction(0);
                 caller.service.getCharacteristic(Characteristic.LockTargetState).updateValue(Characteristic.LockTargetState.SECURED);
                 caller.service.getCharacteristic(Characteristic.LockCurrentState).updateValue(Characteristic.LockCurrentState.SECURED);
                 console.log('timer over');
