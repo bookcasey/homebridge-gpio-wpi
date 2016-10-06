@@ -34,10 +34,10 @@ LockitronAccessory.prototype.setState = function (state, callback) {
     var currentState;
 
     if (state == Characteristic.LockTargetState.SECURED) {
-      pinAction(0);
+      this.pinAction(0);
       currentState = Characteristic.LockCurrentState.SECURED;
     } else {
-      pinAction(1);
+      this.pinAction(1);
       currentState = Characteristic.LockCurrentState.UNSECURED;
     }
 
@@ -47,7 +47,7 @@ LockitronAccessory.prototype.setState = function (state, callback) {
     if (state == Characteristic.LockTargetState.UNSECURED) {
         this.lockTimer = setTimeout(
             function(caller) {
-                pinAction(0);
+                this.pinAction(0);
                 caller.service.getCharacteristic(Characteristic.LockTargetState).updateValue(Characteristic.LockTargetState.SECURED);
                 caller.service.getCharacteristic(Characteristic.LockCurrentState).updateValue(Characteristic.LockCurrentState.SECURED);
                 console.log('timer over');
