@@ -15,7 +15,7 @@ function LockitronAccessory(log, config) {
 
   if (!this.pin) throw new Error('You must provide a config value for pin.');
   if(!this.duration) throw new Error('You must provide a duration');
-  if(!is_int(this.duration && this.duration > 0) throw new Error ('Duration must be a positive integer');
+  if(!is_int(this.duration) && this.duration > 0) throw new Error('Duration must be a positive integer');
 
   wpi.setup('sys');
 
