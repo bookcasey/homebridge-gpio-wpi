@@ -17,7 +17,8 @@ function LockitronAccessory(log, config) {
   if(!this.duration) throw new Error('You must provide a duration');
   if(!is_int(this.duration) && this.duration > 0) throw new Error('Duration must be a positive integer');
 
-  wpi.setup('sys');
+  wpi.setup('wpi');
+  wpi.pinMode(this.pin, wpi.OUTPUT);
 
   this.service
     .getCharacteristic(Characteristic.LockTargetState)
