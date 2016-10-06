@@ -13,6 +13,7 @@ function LockitronAccessory(log, config) {
  this.service
    .getCharacteristic(Characteristic.LockCurrentState)
    .on('get', this.getState.bind(this));
+   
   this.service
     .getCharacteristic(Characteristic.LockTargetState)
     .on('set', this.setState.bind(this));
@@ -21,6 +22,7 @@ LockitronAccessory.prototype.getState = function(callback) {
    console.log('getting state called!');
    callback(null, 1);
 }
+
 LockitronAccessory.prototype.setState = function (state, callback) {
     callback = callback || function() {};
     if (this.lockTimer) {
