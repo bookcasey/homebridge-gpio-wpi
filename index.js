@@ -10,19 +10,18 @@ function LockitronAccessory(log, config) {
   this.log = log;
   this.name = config["name"];
   this.service = new Service.LockMechanism(this.name);
- this.service
-   .getCharacteristic(Characteristic.LockCurrentState)
-   .on('get', this.getState.bind(this));
-   
+ // this.service
+ //   .getCharacteristic(Characteristic.LockCurrentState)
+ //   .on('get', this.getState.bind(this));
   this.service
     .getCharacteristic(Characteristic.LockTargetState)
+    //.on('get', this.getState.bind(this))
     .on('set', this.setState.bind(this));
 }
-LockitronAccessory.prototype.getState = function(callback) {
-   console.log('getting state called!');
-   callback(null, 1);
-}
-
+//LockitronAccessory.prototype.getState = function(callback) {
+//    console.log('getting state called!');
+//    callback(null, 1);
+//}
 LockitronAccessory.prototype.setState = function (state, callback) {
     callback = callback || function() {};
     if (this.lockTimer) {
