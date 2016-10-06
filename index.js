@@ -1,4 +1,5 @@
 var Service, Characteristic;
+var storage = require('node-persist');
 
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
@@ -9,6 +10,7 @@ function LockitronAccessory(log, config) {
   this.log = log;
   this.name = config["name"];
   this.service = new Service.LockMechanism(this.name);
+
   this.service
     .getCharacteristic(Characteristic.LockTargetState)
     .on('set', this.setState.bind(this));
@@ -20,6 +22,12 @@ LockitronAccessory.prototype.setState = function (state, callback) {
         clearTimeout(this.lockTimer);
         delete this.lockTimer;
     }
+
+    var currentState = (state == Characteristic.LockTargetState.SECURED) ?
+        Characteristic.LockCurrentState.SECURED : Characteristic.LockCurrentState.UNSECURED;
+
+    this.service
+        .setCharacteristic(Characteristic.LockCurrentState, currentState);
     if (state == Characteristic.LockTargetState.UNSECURED) {
         this.lockTimer = setTimeout(
             function(caller) {
