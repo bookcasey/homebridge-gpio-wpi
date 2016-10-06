@@ -1,3 +1,5 @@
+var wpi = require("wiring-pi");
+
 var Service, Characteristic;
 module.exports = function(homebridge) {
   Service = homebridge.hap.Service;
